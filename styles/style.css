@@ -27,6 +27,38 @@ body {
   color: white;
   font-family: "Baloo 2", cursive;
 }
+body .animation_wrapper {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  background-color: #fff;
+}
+body .animation_wrapper .animation {
+  margin-top: 10vh;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+body .animation_wrapper .animation .hero {
+  width: 100%;
+  height: 0;
+}
+body .animation_wrapper .animation .hero img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+body .animation_wrapper .slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, rgb(144, 144, 144), rgb(0, 0, 0));
+  z-index: -1;
+}
 body header nav {
   box-shadow: 0 8px 6px -6px black;
 }
