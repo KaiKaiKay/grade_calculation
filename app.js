@@ -38,15 +38,24 @@ allButtons.forEach(button => {
     });
 });
 
-//選擇成績分級後 要改的相對顏色
+//選擇成績分級(select)後 要改的相對顏色
 let allSelects = document.querySelectorAll("select");
 allSelects.forEach(select => {
     select.addEventListener("change", e => {
         //console.log(e.target.value);
-        //e.target 就是<select>
-        changeColor(e.target);
+        setGPA();
+        changeColor(e.target); //e.target 就是<select>
     })
-})
+});
+
+//改變成績(credit)後 更新GPA
+let credits = document.querySelectorAll(".class-credit");
+credits.forEach(credit => { //每一個credit 都是input標籤
+credit.addEventListener("change",()=>{
+    setGPA();
+});
+});
+
 function changeColor(target) {
     if (target.value == "A" || target.value == "A-") {
         target.style.backgroundColor = "lightgreen";
@@ -70,5 +79,76 @@ function changeColor(target) {
     } else {
         target.style.backgroundColor = "white";
     };
+};
 
-}; 
+function convertor(grade) {
+    switch (grade) {
+        case "A":
+            return 4.0;
+        case "A-":
+            return 3.7;
+        case "B+":
+            return 3.4;
+        case "B":
+            return 3.0;
+        case "B-":
+            return 2.7;
+        case "C+":
+            return 2.4;
+        case "C":
+            return 2.0;
+        case "C-":
+            return 1.7;
+        case "D+":
+            return 1.4;
+        case "D":
+            return 1.0;
+        case "D-":
+            return 0.7;
+        case "F":
+            return 0.0;
+        default:
+            return 0;
+    }
+}
+
+function setGPA() {
+    //console.log("執行gpa中");
+    let formLength = document.querySelectorAll("form").length;
+    let credits = document.querySelectorAll(".class-credit");
+    let selects = document.querySelectorAll("select");
+    let sum = 0; //GPA分子
+    let creditSum = 0; //GPA分母
+
+    //計算分母creditSum
+    for (let i = 0; i < credits.length; i++) {
+        //console.log(credits[i].valueAsNumbe);
+
+        if (!isNaN(credits[i].valueAsNumber)) {
+            creditSum += credits[i].valueAsNumber;
+        };
+    };
+    //console.log(creditSum);
+
+    //計算分子sum
+    for (let i = 0; i < formLength; i++) {
+        //console.log(convertor(selects[i].value));
+
+        //convertor(selects[i].value) 將英文等級轉為數字
+        if (!isNaN(credits[i].valueAsNumber)) {
+            sum += credits[i].valueAsNumber * convertor(selects[i].value);
+        };
+    };
+
+    // console.log("creditSum is: " + creditSum);
+    // console.log("sum is: " + sum);
+
+    let result;
+    //解決分子是零出現NaN的問題
+    if (creditSum == 0) {
+        result = (0.0).toFixed(2);
+    } else {
+        result = (sum / creditSum).toFixed(2); //toFixed(2) 到小數點第二位
+    };
+    document.getElementById("result-gpa").innerText = result;
+};
