@@ -286,4 +286,6 @@ let addButton = document.querySelector(".plus-btn"); addButton.addEventListener(
 
     //把newForm append到<div class="all-inputs">
     document.querySelector(".all-inputs").appendChild(newForm);
+
+    newForm.style.animation="scaleUp 0.5s ease forwards"
 });

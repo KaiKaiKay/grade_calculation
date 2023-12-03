@@ -34,7 +34,7 @@ body {
         height: 100vh;
         background-color: #fff;
 
-        .animation{
+        .animation {
             margin-top: 10vh;
             height: 80vh;
             //border: 5px solid red;
@@ -42,12 +42,12 @@ body {
             justify-content: center;
             align-items: center;
 
-            .hero{
+            .hero {
                 width: 100%;
                 //border: 5px solid green;
                 height: 0;
 
-                img{
+                img {
                     width: 100%;
                     height: 100%;
                     object-fit: cover;
@@ -55,13 +55,13 @@ body {
             }
         }
 
-        .slider{
+        .slider {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to right,rgb(144,144,144),rgb(0,0,0));
+            background: linear-gradient(to right, rgb(144, 144, 144), rgb(0, 0, 0));
             z-index: -1;
         }
     }
@@ -131,12 +131,13 @@ body {
                 }
             }
 
-            .plus-btn{
+            .plus-btn {
                 background-color: #272727;
                 border: none;
                 width: 2.5rem;
                 margin: 3rem 0rem;
                 cursor: pointer;
+
                 i {
                     font-size: 2.5rem;
                     pointer-events: none;
@@ -144,19 +145,21 @@ body {
                 }
             }
 
-            .result{
+            .result {
                 width: 200px;
                 height: 200px;
                 border: 3px solid red;
                 border-radius: 50%;
                 text-align: center;
-                animation-name:border_color;
+                animation-name: border_color;
                 animation-duration: 8s;
                 animation-iteration-count: infinite;
-                p{
+
+                p {
                     margin-top: 30px;
                 }
-                h2{
+
+                h2 {
                     font-size: 3.5rem;
                     font-weight: bold;
                 }
@@ -165,14 +168,26 @@ body {
     }
 }
 
-@keyframes border_color{
-    0%{
+@keyframes scaleUp {
+    from {
+        transform: scale(0);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+@keyframes border_color {
+    0% {
         border-color: red;
     }
-    33%{
+
+    33% {
         border-color: greenyellow;
     }
-    66%{
+
+    66% {
         border-color: yellow;
     }
 }
