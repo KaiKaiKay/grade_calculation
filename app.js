@@ -270,6 +270,15 @@ let addButton = document.querySelector(".plus-btn"); addButton.addEventListener(
     //把newItag append到newInput1
     newButton.appendChild(newItag);
 
+    newButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.target.parentElement.parentElement.style.animation = "scaleDown 0.5s ease forwards";
+        e.target.parentElement.parentElement.addEventListener("animationend", (e) => {
+            e.target.remove();
+            setGPA();
+        });
+    });
+
     //把newInput1 2 3 append到newDiv
     newDiv.appendChild(newInput1);
     newDiv.appendChild(newInput2);
@@ -287,5 +296,25 @@ let addButton = document.querySelector(".plus-btn"); addButton.addEventListener(
     //把newForm append到<div class="all-inputs">
     document.querySelector(".all-inputs").appendChild(newForm);
 
-    newForm.style.animation="scaleUp 0.5s ease forwards"
+    newForm.style.animation = "scaleUp 0.5s ease forwards";
+});
+
+//垃圾桶刪除動作
+let allTrash = document.querySelectorAll(".trash-button");
+//點擊後要做的事情：把整列form刪掉
+allTrash.forEach(trash => {
+    trash.addEventListener("click", (e) => {
+        //e.target: <button class="trash-button">
+        //e.target.parentElement: <div class="grader">
+        //e.target.parentElement.parentElement: <form>
+        e.target.parentElement.parentElement.classList.add("remove"); //先縮小
+    });
+});
+allTrash.forEach(trash => {
+    let form = trash.parentElement.parentElement;
+    //監聽transition結束這個事件 結束後才觸發remove()
+    form.addEventListener("transitionend", (e) => {
+        e.target.remove();
+        setGPA();
+    });
 });
