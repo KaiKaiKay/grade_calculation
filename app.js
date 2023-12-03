@@ -39,7 +39,7 @@ allButtons.forEach(button => {
 });
 
 //選擇成績分級(select)後 要改的相對顏色
-let allSelects = document.querySelectorAll("select");
+let allSelects = document.querySelectorAll("select"); //靜態nodelist
 allSelects.forEach(select => {
     select.addEventListener("change", e => {
         //console.log(e.target.value);
@@ -51,9 +51,9 @@ allSelects.forEach(select => {
 //改變成績(credit)後 更新GPA
 let credits = document.querySelectorAll(".class-credit");
 credits.forEach(credit => { //每一個credit 都是input標籤
-credit.addEventListener("change",()=>{
-    setGPA();
-});
+    credit.addEventListener("change", () => {
+        setGPA();
+    });
 });
 
 function changeColor(target) {
@@ -152,3 +152,138 @@ function setGPA() {
     };
     document.getElementById("result-gpa").innerText = result;
 };
+
+let addButton = document.querySelector(".plus-btn"); addButton.addEventListener("click", () => {
+    let newForm = document.createElement("form");
+    let newDiv = document.createElement("div");
+    newDiv.classList.add("grader");
+
+    //製作五個元素:input*3 select button
+    //第一個 input
+    let newInput1 = document.createElement("input");
+    newInput1.setAttribute("type", "text");
+    newInput1.setAttribute("list", "opt");
+    newInput1.setAttribute("placeholder", "class category");
+    newInput1.classList.add("class-type");
+
+    //第二個 input
+    let newInput2 = document.createElement("input");
+    newInput2.setAttribute("type", "text");
+    newInput2.setAttribute("placeholder", "class number");
+    newInput2.classList.add("class-number");
+
+    //第三個 input
+    let newInput3 = document.createElement("input");
+    newInput3.setAttribute("type", "number");
+    newInput3.setAttribute("placeholder", "credits");
+    newInput3.setAttribute("min", "0");
+    newInput3.setAttribute("max", "6");
+    newInput3.classList.add("class-credit");
+    //更新GPA
+    newInput3.addEventListener("change", () => {
+        setGPA()
+    });
+
+    //第四個 select
+    let newSelect = document.createElement("select");
+    newSelect.classList.add("select");
+    var opt1 = document.createElement("option");
+    opt1.setAttribute("value", "");
+    let textNode1 = document.createTextNode("");
+    opt1.appendChild(textNode1);
+    var opt2 = document.createElement("option");
+    opt2.setAttribute("value", "A");
+    let textNode2 = document.createTextNode("A");
+    opt2.appendChild(textNode2);
+    var opt3 = document.createElement("option");
+    opt3.setAttribute("value", "A-");
+    let textNode3 = document.createTextNode("A-");
+    opt3.appendChild(textNode3);
+    var opt4 = document.createElement("option");
+    opt4.setAttribute("value", "B+");
+    let textNode4 = document.createTextNode("B+");
+    opt4.appendChild(textNode4);
+    var opt5 = document.createElement("option");
+    opt5.setAttribute("value", "B");
+    let textNode5 = document.createTextNode("B");
+    opt5.appendChild(textNode5);
+    var opt6 = document.createElement("option");
+    opt6.setAttribute("value", "B-");
+    let textNode6 = document.createTextNode("B-");
+    opt6.appendChild(textNode6);
+    var opt7 = document.createElement("option");
+    opt7.setAttribute("value", "C+");
+    let textNode7 = document.createTextNode("C+");
+    opt7.appendChild(textNode7);
+    var opt8 = document.createElement("option");
+    opt8.setAttribute("value", "C");
+    let textNode8 = document.createTextNode("C");
+    opt8.appendChild(textNode8);
+    var opt9 = document.createElement("option");
+    opt9.setAttribute("value", "C-");
+    let textNode9 = document.createTextNode("C-");
+    opt9.appendChild(textNode9);
+    var opt10 = document.createElement("option");
+    opt10.setAttribute("value", "D+");
+    let textNode10 = document.createTextNode("D+");
+    opt10.appendChild(textNode10);
+    var opt11 = document.createElement("option");
+    opt11.setAttribute("value", "D");
+    let textNode11 = document.createTextNode("D");
+    opt11.appendChild(textNode11);
+    var opt12 = document.createElement("option");
+    opt12.setAttribute("value", "D-");
+    let textNode12 = document.createTextNode("D-");
+    opt12.appendChild(textNode12);
+    var opt13 = document.createElement("option");
+    opt13.setAttribute("value", "F");
+    let textNode13 = document.createTextNode("F");
+    opt13.appendChild(textNode13);
+
+    newSelect.appendChild(opt1);
+    newSelect.appendChild(opt2);
+    newSelect.appendChild(opt3);
+    newSelect.appendChild(opt4);
+    newSelect.appendChild(opt5);
+    newSelect.appendChild(opt6);
+    newSelect.appendChild(opt7);
+    newSelect.appendChild(opt8);
+    newSelect.appendChild(opt9);
+    newSelect.appendChild(opt10);
+    newSelect.appendChild(opt11);
+    newSelect.appendChild(opt12);
+    newSelect.appendChild(opt13);
+
+    //讓新建立的form也被監聽 並跟著變動
+    newSelect.addEventListener("change", (e) => {
+        setGPA();
+        changeColor(e.target);
+    })
+
+    //第五個 button
+    let newButton = document.createElement("button");
+    newButton.classList.add("trash-button");
+    let newItag = document.createElement("i");
+    newItag.classList.add("fas");
+    newItag.classList.add("fa-trash");
+
+    //把newItag append到newInput1
+    newButton.appendChild(newItag);
+
+    //把newInput1 2 3 append到newDiv
+    newDiv.appendChild(newInput1);
+    newDiv.appendChild(newInput2);
+    newDiv.appendChild(newInput3);
+
+    //把newSelect append到newDiv
+    newDiv.appendChild(newSelect);
+
+    //把newButton append到newDiv
+    newDiv.appendChild(newButton);
+
+    //把newDiv append到newForm
+    newForm.appendChild(newDiv);
+
+    //把newForm append到<div class="all-inputs">
+    document.querySelector(".all-inputs").appendChild(newForm);
+});
